@@ -1,9 +1,11 @@
 package br.ufpb.dcx.rodrigor.atividade.sca.text_ui;
 import br.ufpb.dcx.rodrigor.atividade.sca.model.Aluno;
+import br.ufpb.dcx.rodrigor.atividade.sca.persistencia.ErroPersistenciaException;
 import br.ufpb.dcx.rodrigor.atividade.sca.persistencia.GerentePersistenciaAlunos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -59,7 +61,7 @@ public class MenusTexto {
         LocalDate dataNascimento;
         try {
             dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
             System.out.println("Data de nascimento inválida! O aluno não será cadastrado.");
             return;
         }
@@ -68,7 +70,7 @@ public class MenusTexto {
 
         try {
             this.gerentePersistenciaAlunos.cadastrarAluno(aluno);
-        }catch (Exception e){
+        }catch (ErroPersistenciaException e){
             System.out.println("Infelizmente houve um erro interno do sistema!");
             return;
         }
@@ -76,16 +78,25 @@ public class MenusTexto {
     }
 
     public void listarAlunos() {
-        List<Aluno> listaAlunos = this.gerentePersistenciaAlunos.recuperarAlunos();
-        if (listaAlunos.isEmpty()) {
-            System.out.println("Não há alunos cadastrados.");
-            return;
-        }
-
-        System.out.println("------ Lista de Alunos ------");
-        for (Aluno aluno : listaAlunos) {
-            System.out.println(aluno);
+        try {
+            List<Aluno> listaAlunos = this.gerentePersistenciaAlunos.recuperarAlunos();
+            
+            if (listaAlunos == null) {
+                System.out.println("Erro ao recuperar a lista de alunos.");
+                return;
+            }
+            
+            if (listaAlunos.isEmpty()) {
+                System.out.println("Não há alunos cadastrados.");
+                return;
+            }
+    
+            System.out.println("------ Lista de Alunos ------");
+            for (Aluno aluno : listaAlunos) {
+                System.out.println(aluno);
+            }
+        } catch (ErroPersistenciaException e) {
+            System.out.println("Erro ao recuperar alunos: " + e.getMessage());
         }
     }
-
 }

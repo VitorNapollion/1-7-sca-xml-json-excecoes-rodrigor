@@ -1,6 +1,7 @@
 package br.ufpb.dcx.rodrigor.atividade.sca.persistencia.json;
 
 import br.ufpb.dcx.rodrigor.atividade.sca.model.Aluno;
+import br.ufpb.dcx.rodrigor.atividade.sca.persistencia.ErroPersistenciaException;
 import br.ufpb.dcx.rodrigor.atividade.sca.persistencia.GerentePersistenciaAlunos;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,7 +47,7 @@ public class GerenciadorAlunosJSON implements GerentePersistenciaAlunos {
                 return listaAlunos;
             }
         } catch (IOException e) {
-            System.out.println("Erro ao recuperar alunos do arquivo JSON: " + e.getMessage());
+            throw new ErroPersistenciaException("Erro ao recuperar alunos do arquivo JSON: " + e.getMessage());
         }
 
         return null;

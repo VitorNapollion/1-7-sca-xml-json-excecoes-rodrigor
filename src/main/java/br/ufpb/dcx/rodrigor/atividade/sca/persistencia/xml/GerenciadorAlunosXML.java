@@ -48,7 +48,7 @@ public class GerenciadorAlunosXML implements GerentePersistenciaAlunos {
                 return listaAlunos;
             }
         } catch (IOException | ClassNotFoundException e) {
-            throw new ErroPersistenciaException(e.getMessage());
+            throw new ErroPersistenciaException("Erro ao recuperar alunos do arquivo XML: " + e.getMessage());
         }
 
         return null;
