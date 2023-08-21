@@ -52,8 +52,28 @@ public class MenusTexto {
         System.out.print("Digite a matrícula do aluno: ");
         String matricula = scanner.nextLine();
 
+        if (!matricula.matches("\\d+")) {
+            System.out.println("Matrícula deve ser numérica. O aluno não será cadastrado.");
+            return;
+        }
+
+        if (matricula.trim().isEmpty()) {
+            System.out.println("Matrícula não pode estar vazia. O aluno não será cadastrado.");
+            return;
+        }
+    
         System.out.print("Digite o nome do aluno: ");
         String nome = scanner.nextLine();
+
+        if (!nome.matches("^[a-zA-Z]+$")) {
+            System.out.println("Nome deve conter apenas letras do alfabeto e sem espaços em branco. O aluno não será cadastrado.");
+            return;
+        }
+    
+        if (nome.trim().isEmpty()) {
+            System.out.println("Nome não pode estar vazio. O aluno não será cadastrado.");
+            return;
+        }
 
         System.out.print("Digite a data de nascimento do aluno (dd/MM/yyyy): ");
         String dataNascimentoStr = scanner.nextLine();
