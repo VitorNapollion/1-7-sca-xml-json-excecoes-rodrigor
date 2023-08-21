@@ -4,6 +4,8 @@ import br.ufpb.dcx.rodrigor.atividade.sca.persistencia.ErroPersistenciaException
 import br.ufpb.dcx.rodrigor.atividade.sca.persistencia.GerentePersistenciaAlunos;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.security.AnyTypePermission;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,8 @@ public class GerenciadorAlunosXML implements GerentePersistenciaAlunos {
     public GerenciadorAlunosXML(String nomeArquivo) {
         this.nomeArquivo = nomeArquivo;
         this.xstream = new XStream(new DomDriver());
-        this.xstream.alias("aluno", Aluno.class); // Define o alias para a classe Aluno no XML
+        this.xstream.addPermission(AnyTypePermission.ANY);
+        this.xstream.alias("aluno", Aluno.class);
     }
 
     public void setNomeArquivo(String nomeArquivo) {

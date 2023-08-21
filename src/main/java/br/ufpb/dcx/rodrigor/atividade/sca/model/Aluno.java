@@ -7,6 +7,10 @@ public class Aluno {
     private String nome;
     private LocalDate dataNascimento;
 
+    public Aluno(){
+        
+    }
+
     public Aluno(String matricula, String nome, LocalDate dataNascimento) {
         this.matricula = matricula;
         this.nome = nome;

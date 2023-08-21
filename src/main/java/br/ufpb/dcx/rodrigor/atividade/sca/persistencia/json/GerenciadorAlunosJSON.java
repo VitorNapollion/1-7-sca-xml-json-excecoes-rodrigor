@@ -4,6 +4,8 @@ import br.ufpb.dcx.rodrigor.atividade.sca.model.Aluno;
 import br.ufpb.dcx.rodrigor.atividade.sca.persistencia.GerentePersistenciaAlunos;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class GerenciadorAlunosJSON implements GerentePersistenciaAlunos {
     public GerenciadorAlunosJSON(String nomeArquivo) {
         this.nomeArquivo = nomeArquivo;
         this.objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     public void setNomeArquivo(String nomeArquivo) {

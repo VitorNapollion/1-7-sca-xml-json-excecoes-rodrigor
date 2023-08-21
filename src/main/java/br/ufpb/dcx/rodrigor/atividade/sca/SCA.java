@@ -10,7 +10,7 @@ public class SCA {
     public static void main(String[] args) {
 
 
-        new MenusTexto(new GerenciadorAlunosXML("alunos.xml")).exibirMenu();
+        new MenusTexto(new GerenciadorAlunosJSON("alunos.json")).exibirMenu();
 
 //        GerenciadorAlunosJSON json = new GerenciadorAlunosJSON("alunos.json");
 //        MenusTexto menu = new MenusTexto(json);
